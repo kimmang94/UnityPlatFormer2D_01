@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         float h = Input.GetAxisRaw("Horizontal");
-        
+
         rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
 
         if (rigid.velocity.x > maxSpeed)
@@ -59,9 +59,16 @@ public class PlayerController : MonoBehaviour
         }
         else if (rigid.velocity.x < maxSpeed * (-1))
         {
-            rigid.velocity = new Vector2(maxSpeed* (-1), rigid.velocity.y);
+            rigid.velocity = new Vector2(maxSpeed * (-1), rigid.velocity.y);
         }
-        
+
         Debug.DrawRay(rigid.position, Vector3.down, new Color(0f, 1f, 0f));
+
+        RaycastHit2D rayHit2D = Physics2D.Raycast(rigid.position, Vector3.down, 1f, LayerMask.GetMask("PlatForm"));
+        
+        if (rayHit2D.collider != null)
+        {
+            
+        }
     }
 }
