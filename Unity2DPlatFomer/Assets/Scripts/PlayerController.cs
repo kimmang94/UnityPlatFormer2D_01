@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            animator.SetBool("isJump", true);
         }
 
     if (Input.GetButtonUp("Horizontal"))
