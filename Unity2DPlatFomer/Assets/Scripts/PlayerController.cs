@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isJump", true);
         }
 
-    if (Input.GetButtonUp("Horizontal"))
+         if (Input.GetButtonUp("Horizontal"))
         {
             rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0, rigid.velocity.y);
         }
@@ -61,5 +61,7 @@ public class PlayerController : MonoBehaviour
         {
             rigid.velocity = new Vector2(maxSpeed* (-1), rigid.velocity.y);
         }
+        
+        Debug.DrawRay(rigid.position, Vector3.down, new Color(0f, 1f, 0f));
     }
 }
