@@ -8,23 +8,33 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxSpeed = 0;
     private Rigidbody2D rigid = null;
     private SpriteRenderer spriteRenderer = null;
-
+    private Animator animator = null;
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
         if (Input.GetButtonUp("Horizontal"))
         {
-            rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.5f, rigid.velocity.y);
+            rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0, rigid.velocity.y);
         }
 
         if (Input.GetButton("Horizontal"))
         {
             spriteRenderer.flipX = Input.GetAxisRaw("Horizontal") == -1f;
+        }
+
+        if (rigid.velocity.normalized.x == 0)
+        {
+            animator.SetBool("isWalk", false);
+        }
+        else
+        {
+            animator.SetBool("isWalk", true);
         }
 
     }
