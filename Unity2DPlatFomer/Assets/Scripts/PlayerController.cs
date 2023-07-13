@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && !animator.GetBool("isJump"))
         {
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
             animator.SetBool("isJump", true);
@@ -62,13 +62,19 @@ public class PlayerController : MonoBehaviour
             rigid.velocity = new Vector2(maxSpeed * (-1), rigid.velocity.y);
         }
 
-        Debug.DrawRay(rigid.position, Vector3.down, new Color(0f, 1f, 0f));
-
-        RaycastHit2D rayHit2D = Physics2D.Raycast(rigid.position, Vector3.down, 1f, LayerMask.GetMask("PlatForm"));
-        
-        if (rayHit2D.collider != null)
+        if (rigid.velocity.y < 0)
         {
-            
+            Debug.DrawRay(rigid.position, Vector3.down, new Color(0f, 1f, 0f));
+            RaycastHit2D rayHit2D = Physics2D.Raycast(rigid.position, Vector3.down, 1f, LayerMask.GetMask("PlatForm"));
+
+            if (rayHit2D.collider != null)
+            {
+                if (rayHit2D.distance < 0.5f)
+                {
+                    animator.SetBool("isJump", false);
+                }
+            }
         }
+        
     }
 }
