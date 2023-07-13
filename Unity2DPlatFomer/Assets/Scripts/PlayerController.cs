@@ -6,11 +6,13 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float maxSpeed = 0;
-    private Rigidbody2D rigid;
+    private Rigidbody2D rigid = null;
+    private SpriteRenderer spriteRenderer = null;
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -19,6 +21,12 @@ public class PlayerController : MonoBehaviour
         {
             rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.5f, rigid.velocity.y);
         }
+
+        if (Input.GetButton("Horizontal"))
+        {
+            spriteRenderer.flipX = Input.GetAxisRaw("Horizontal") == -1f;
+        }
+
     }
 
     private void FixedUpdate()
