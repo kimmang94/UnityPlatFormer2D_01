@@ -6,9 +6,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float maxSpeed = 0;
+    [SerializeField] private float jumpPower = 0;
     private Rigidbody2D rigid = null;
     private SpriteRenderer spriteRenderer = null;
     private Animator animator = null;
+    
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -18,7 +20,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonUp("Horizontal"))
+        if (Input.GetButtonDown("Jump"))
+        {
+            rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+        }
+
+    if (Input.GetButtonUp("Horizontal"))
         {
             rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0, rigid.velocity.y);
         }
