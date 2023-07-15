@@ -19,6 +19,17 @@ public class EnemyController : MonoBehaviour
     private void FixedUpdate()
     {
         rigid.velocity = new Vector2(nextMove, rigid.velocity.y);
+
+
+        Vector2 frontVector = new Vector2(rigid.position.x + nextMove, rigid.position.y);
+        Debug.DrawRay(frontVector, Vector3.down, new Color(0, 1f, 0));
+        RaycastHit2D raycastHit2D = Physics2D.Raycast(frontVector, Vector3.down, 1f, LayerMask.GetMask("PlatForm"));
+        if (raycastHit2D.collider == null)
+        {
+            nextMove *=  -1;
+            CancelInvoke();
+            Invoke("NextState", 5f);
+        }
     }
 
     private void NextState()
