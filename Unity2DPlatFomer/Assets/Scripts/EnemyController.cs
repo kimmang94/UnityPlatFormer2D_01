@@ -9,10 +9,16 @@ public class EnemyController : MonoBehaviour
     private Rigidbody2D rigid = null;
 
     [SerializeField] private int nextMove = 0;
+
+    private Animator animator = null;
+
+    private SpriteRenderer spriteRendrer = null;
+    
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-
+        animator = GetComponent<Animator>();
+        spriteRendrer = GetComponent<SpriteRenderer>();
         Invoke("NextState", 5f);
     }
 
@@ -26,16 +32,33 @@ public class EnemyController : MonoBehaviour
         RaycastHit2D raycastHit2D = Physics2D.Raycast(frontVector, Vector3.down, 1f, LayerMask.GetMask("PlatForm"));
         if (raycastHit2D.collider == null)
         {
-            nextMove *=  -1;
-            CancelInvoke();
-            Invoke("NextState", 5f);
+            Turn();
         }
     }
 
     private void NextState()
     {
         nextMove = Random.Range(-1, 2);
+
+        animator.SetInteger("WalkSpeed", nextMove);
+
+        if (nextMove != 0)
+        {
+            spriteRendrer.flipX = nextMove == 1;
+        }
         
+        float nextTime = Random.Range(2f, 5f);
+        Invoke("NextState", nextTime);
+        
+
+    }
+
+    private void Turn()
+    {
+        nextMove *=  -1;
+        
+        spriteRendrer.flipX = nextMove == 1;
+        CancelInvoke();
         Invoke("NextState", 5f);
     }
 }
