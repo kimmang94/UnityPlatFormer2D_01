@@ -8,8 +8,8 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: isEnemyWalk
+  - m_ConditionMode: 7
+    m_ConditionEvent: WalkSpeed
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2781355099127186414}
@@ -33,8 +33,8 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: isEnemyWalk
+  - m_ConditionMode: 6
+    m_ConditionEvent: WalkSpeed
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2141577659435734554}
@@ -59,7 +59,7 @@ AnimatorController:
   m_Name: Enemy
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: isWalk
+  - m_Name: WalkSpeed
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0

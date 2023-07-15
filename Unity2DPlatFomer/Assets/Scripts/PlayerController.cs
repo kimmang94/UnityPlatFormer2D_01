@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        
         if (Input.GetButtonDown("Jump") && !animator.GetBool("isJump"))
         {
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
@@ -46,11 +48,10 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
     private void FixedUpdate()
     {
         float h = Input.GetAxisRaw("Horizontal");
-
+        
         rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
 
         if (rigid.velocity.x > maxSpeed)
@@ -59,9 +60,9 @@ public class PlayerController : MonoBehaviour
         }
         else if (rigid.velocity.x < maxSpeed * (-1))
         {
-            rigid.velocity = new Vector2(maxSpeed * (-1), rigid.velocity.y);
+            rigid.velocity = new Vector2(maxSpeed* (-1), rigid.velocity.y);
         }
-
+        
         if (rigid.velocity.y < 0)
         {
             Debug.DrawRay(rigid.position, Vector3.down, new Color(0f, 1f, 0f));
@@ -75,6 +76,23 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        
+    }
+    public void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            Debug.Log("Hit");
+            //OnDamaged(other.transform.position);
+        }
+    }
+
+    private void OnDamaged(Vector2 targetPos)
+    {
+        gameObject.layer = 9;
+
+        spriteRenderer.color = new Color(1, 1,1, 0.5f);
+
+        int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1 ;
+        rigid.AddForce(new Vector2(dirc,1) * 7,ForceMode2D.Impulse);
     }
 }
