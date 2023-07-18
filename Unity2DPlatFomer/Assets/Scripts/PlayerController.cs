@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Enemy")
         {
             Debug.Log("Hit");
-            //OnDamaged(other.transform.position);
+            OnDamaged(other.transform.position);
         }
     }
 
