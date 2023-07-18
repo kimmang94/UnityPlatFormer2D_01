@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    public void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Enemy")
         {
