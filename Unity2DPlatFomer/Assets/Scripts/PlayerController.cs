@@ -90,9 +90,17 @@ public class PlayerController : MonoBehaviour
     {
         gameObject.layer = 9;
 
-        spriteRenderer.color = new Color(1, 1,1, 0.5f);
+        spriteRenderer.color = new Color(1, 1,1, 0.4f);
 
-        int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1 ;
-        rigid.AddForce(new Vector2(dirc,1) * 7,ForceMode2D.Impulse);
+        int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
+        rigid.AddForce(new Vector2(dirc,1) * 3,ForceMode2D.Impulse);
+        
+        Invoke("OffDamaged", 3f);
+    }
+
+    private void OffDamaged()
+    {
+        gameObject.layer = 8;
+        spriteRenderer.color = new Color(1, 1, 1, 1);
     }
 }
