@@ -95,6 +95,8 @@ public class PlayerController : MonoBehaviour
         int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
         rigid.AddForce(new Vector2(dirc,1) * 3,ForceMode2D.Impulse);
         
+        animator.SetTrigger("Damaged");
+        
         Invoke("OffDamaged", 3f);
     }
 
