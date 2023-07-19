@@ -13,12 +13,14 @@ public class EnemyController : MonoBehaviour
     private Animator animator = null;
 
     private SpriteRenderer spriteRendrer = null;
-    
+
+    private CircleCollider2D circlecollider = null;
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRendrer = GetComponent<SpriteRenderer>();
+        circlecollider = GetComponent<CircleCollider2D>();
         Invoke("NextState", 5f);
     }
 
@@ -60,5 +62,19 @@ public class EnemyController : MonoBehaviour
         spriteRendrer.flipX = nextMove == 1;
         CancelInvoke();
         Invoke("NextState", 5f);
+    }
+
+    public void OnDamaged()
+    {
+        spriteRendrer.color = new Color(1, 1, 1, 0.5f);
+        spriteRendrer.flipY = true;
+        circlecollider.enabled = false;
+        rigid.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
+        Invoke("DeActive", 5);
+    }
+
+    private void DeActive()
+    {
+        gameObject.SetActive(false);
     }
 }

@@ -81,8 +81,15 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
-            Debug.Log("Hit");
-            OnDamaged(other.transform.position);
+            if (rigid.velocity.y < 0 && transform.position.y > other.transform.position.y)
+            {
+                Attack(other.transform);
+            }
+            else
+            {
+                OnDamaged(other.transform.position);
+            }
+            
         }
     }
 
@@ -104,5 +111,12 @@ public class PlayerController : MonoBehaviour
     {
         gameObject.layer = 8;
         spriteRenderer.color = new Color(1, 1, 1, 1);
+    }
+
+    private void Attack(Transform enemy)
+    {
+        rigid.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
+        EnemyController enemyMove = enemy.GetComponent<EnemyController>();
+        enemyMove.OnDamaged();
     }
 }
