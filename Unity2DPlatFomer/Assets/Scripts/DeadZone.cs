@@ -10,7 +10,13 @@ public class DeadZone : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            _manager.health--;
+            if (_manager.health > 1)
+            {
+                other.attachedRigidbody.velocity = Vector2.zero;
+                other.transform.position = new Vector3(0, 0, -1);
+            }
+            _manager.HealthDown();
         }
+        
     }
 }

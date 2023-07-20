@@ -13,13 +13,15 @@ public class PlayerController : MonoBehaviour
     private Animator animator = null;
     [SerializeField]
     private Manager _manager = null;
-    
+
+    private CircleCollider2D circleCollider2D = null;
     
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        circleCollider2D = GetComponent<CircleCollider2D>();
     }
 
     private void Update()
@@ -128,8 +130,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnDamaged(Vector2 targetPos)
     {
-        _manager.health--;
-        
+        _manager.HealthDown();
+
         gameObject.layer = 9;
 
         spriteRenderer.color = new Color(1, 1,1, 0.4f);
@@ -154,5 +156,13 @@ public class PlayerController : MonoBehaviour
         EnemyController enemyMove = enemy.GetComponent<EnemyController>();
         _manager.stagePoint += 1;
         enemyMove.OnDamaged();
+    }
+
+    public void OnDie()
+    {
+        spriteRenderer.color = new Color(1, 1, 1, 0.5f);
+        spriteRenderer.flipY = true;
+        circleCollider2D.enabled = false;
+        rigid.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
     }
 }
