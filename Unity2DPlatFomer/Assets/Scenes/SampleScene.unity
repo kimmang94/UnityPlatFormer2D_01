@@ -443,6 +443,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c3a689270cf0148bf179796c6ef67a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalPoint: 0
+  stagePoint: 0
+  stageIndex: 0
 --- !u!4 &1005871714
 Transform:
   m_ObjectHideFlags: 0
@@ -770,6 +773,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 3
   jumpPower: 10
+  _manager: {fileID: 1005871713}
 --- !u!50 &1193649757
 Rigidbody2D:
   serializedVersion: 4

@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rigid = null;
     private SpriteRenderer spriteRenderer = null;
     private Animator animator = null;
+    [SerializeField]
+    private Manager _manager = null;
+    
     
     private void Awake()
     {
@@ -97,6 +100,22 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.tag == "Item")
         {
+            bool isBronze = other.gameObject.name.Contains("Bronze");
+            bool isSilver = other.gameObject.name.Contains("Silver");
+            bool isGold = other.gameObject.name.Contains("Gold");
+
+            if (isBronze)
+            {
+                _manager.stagePoint += 50;
+            }
+            else if (isSilver)
+            {
+                _manager.stagePoint += 100;
+            }
+            else if (isGold)
+            {
+                _manager.stagePoint += 300;
+            }
             
             other.gameObject.SetActive(false);
         }
@@ -131,6 +150,7 @@ public class PlayerController : MonoBehaviour
     {
         rigid.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
         EnemyController enemyMove = enemy.GetComponent<EnemyController>();
+        _manager.stagePoint += 1;
         enemyMove.OnDamaged();
     }
 }

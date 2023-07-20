@@ -1,17 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int totalPoint = 0;
+    public int stagePoint = 0;
+    public int stageIndex = 0;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
         
     }
