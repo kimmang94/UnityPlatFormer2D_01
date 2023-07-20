@@ -122,12 +122,14 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.tag == "Finish")
         {
-            
+            _manager.NextStage();
         }
     }
 
     private void OnDamaged(Vector2 targetPos)
     {
+        _manager.health--;
+        
         gameObject.layer = 9;
 
         spriteRenderer.color = new Color(1, 1,1, 0.4f);

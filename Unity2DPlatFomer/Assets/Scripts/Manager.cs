@@ -8,9 +8,12 @@ public class Manager : MonoBehaviour
     public int totalPoint = 0;
     public int stagePoint = 0;
     public int stageIndex = 0;
-
-    private void Start()
+    public int health = 3;
+    
+    public void NextStage()
     {
-        
+        stageIndex++;
+        totalPoint = stagePoint;
+        stagePoint = 0;
     }
 }
