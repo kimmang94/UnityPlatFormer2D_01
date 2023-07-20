@@ -93,6 +93,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Item")
+        {
+            
+            other.gameObject.SetActive(false);
+        }
+
+        if (other.gameObject.tag == "Finish")
+        {
+            
+        }
+    }
+
     private void OnDamaged(Vector2 targetPos)
     {
         gameObject.layer = 9;
