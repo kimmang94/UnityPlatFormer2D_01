@@ -10,12 +10,24 @@ public class Manager : MonoBehaviour
     public int stageIndex = 0;
     public int health = 3;
 
-    [SerializeField] private PlayerController player;
-    
+    [SerializeField] private PlayerController player = null;
+
+    [SerializeField] private GameObject[] stages;
     
     public void NextStage()
     {
-        stageIndex++;
+        if (stageIndex < stages.Length - 1)
+        {
+            stages[stageIndex].SetActive(false);
+            stageIndex++;
+            stages[stageIndex].SetActive(true);
+            PlayerReposition();
+        }
+        else
+        {
+            Time.timeScale = 0;
+        }
+
         totalPoint = stagePoint;
         stagePoint = 0;
     }
@@ -30,5 +42,11 @@ public class Manager : MonoBehaviour
         {
             player.OnDie();
         }
+    }
+
+    private void PlayerReposition()
+    {
+        player.transform.position = new Vector3(0, 0, -1);
+        player.VelocityZero();
     }
 }
